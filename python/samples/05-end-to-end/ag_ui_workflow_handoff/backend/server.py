@@ -85,14 +85,9 @@ def lookup_order_details(order_id: str) -> dict[str, str]:
 def create_agents() -> tuple[Agent, Agent, Agent]:
     """Create triage, refund, and order agents for the handoff workflow."""
 
-    from agent_framework.foundry import FoundryChatClient
-    from azure.identity import AzureCliCredential
+    from agent_framework.ollama import OllamaChatClient
 
-    client = FoundryChatClient(
-        project_endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
-        model=os.environ["FOUNDRY_MODEL"],
-        credential=AzureCliCredential(),
-    )
+    client = OllamaChatClient(model="gemma4:e4b")
 
     triage = Agent(
         id="triage_agent",
